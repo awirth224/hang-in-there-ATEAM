@@ -2,12 +2,15 @@
 var randomImage = document.querySelector('poster-img');
 var randomTitle = document.querySelector('poster-title');
 var randomQuote = document.querySelector('poster-quote');
-var submitButton = document.querySelector('button');
-var newPoster = new Poster(
-  getRandomIndex(images),
-  getRandomIndex(titles), 
-  getRandomIndex(quotes)
-  )
+var button = document.querySelectorAll('.button');
+
+
+
+// var newPoster = new Poster(
+//   images[getRandomIndex(images)],
+//   titles[getRandomIndex(titles)], 
+//   quotes[getRandomIndex(quotes)]
+// )
   var ourPoster = new Poster(
     'https://gph.is/2n553Ra',
     'Growth Mindset', 
@@ -115,12 +118,13 @@ var quotes = [
 var savedPosters = [];
 
 // event listeners go here 👇
-window.addeventListener('load', currentPoster)
+//window.addEventListener('load', currentPoster)
 
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
-}
-console.log(getRandomIndex)
+
+//function getRandomIndex(array) {
+  //return Math.floor(Math.random() * array.length);
+//}
+console.log('green')
 
 function currentPoster() {
   console.log('green')
@@ -130,7 +134,7 @@ function currentPoster() {
 
   return newPoster
 }
-currentPoster()
+
 
 function randomPosters () {
   // getRandomIndex(images)
