@@ -1,4 +1,9 @@
 // query selector variables go here 👇
+var randomImage = document.querySelector('poster-img');
+var randomTitle = document.querySelector('poster-title');
+var randomQuote = document.querySelector('poster-quote');
+var submitButton = document.querySelector('button');
+var newPoster = new Poster(getRandomIndex(images), getRandomIndex(titles), getRandomIndex(quotes))
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -102,10 +107,28 @@ var savedPosters = [];
 var currentPoster;
 
 // event listeners go here 👇
+window.eventListener('load', randomPosters)
 
 // functions and event handlers go here 👇
 // (we've provided one for you to get you started)!
+
+// class NewPoster {
+//   constructor(randomImage,randomTitle,randomQuote) {
+//     this.randomImage = randomImage
+//     this.randomTitle = randomTitle
+//     this.randomQuote = randomQuote
+//   }
+// }
+
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
+  console.log(getRandomIndex)
 }
+function randomPosters () {
+  // getRandomIndex(images)
+  // getRandomIndex(titles)
+  // getRandomIndex(quotes)
+  return newPoster
+}
+
 
