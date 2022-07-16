@@ -1,21 +1,12 @@
 // query selector variables go here 👇
-var randomImage = document.querySelector('poster-img');
-var randomTitle = document.querySelector('poster-title');
-var randomQuote = document.querySelector('poster-quote');
-var button = document.querySelectorAll('.button');
-
-
-
-// var newPoster = new Poster(
-//   images[getRandomIndex(images)],
-//   titles[getRandomIndex(titles)], 
-//   quotes[getRandomIndex(quotes)]
-// )
-  var ourPoster = new Poster(
-    'https://gph.is/2n553Ra',
-    'Growth Mindset', 
-    'Hang in there!'
-    )
+var randomImage = document.querySelector('.poster-img');
+var randomTitle = document.querySelector('.poster-title');
+var randomQuote = document.querySelector('.poster-quote');
+var savePosterButton = document.querySelector('.save-poster');
+var showSavedButton = document.querySelector('.show-saved');
+var showRandomButton = document.querySelector('.show-random');
+var showFormButton = document.querySelector('.show-form')
+// var newPoster = new Poster(randomImage, randomTitle, randomQuote)
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -118,30 +109,25 @@ var quotes = [
 var savedPosters = [];
 
 // event listeners go here 👇
-//window.addEventListener('load', currentPoster)
+window.addEventListener('load', displayPoster)
+showRandomButton.addEventListener('click', displayPoster)
 
 
-//function getRandomIndex(array) {
-  //return Math.floor(Math.random() * array.length);
-//}
-console.log('green')
-
-function currentPoster() {
-  console.log('green')
-  //randomImage.src = './assets/bees.jpg'
-  //randomTitle.innerText = 'Growth Mindset'
-  //randomQuote.innerText = 'Hang In There'
-
-  return newPoster
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
 }
-
-
-function randomPosters () {
-  // getRandomIndex(images)
-  // getRandomIndex(titles)
-  // getRandomIndex(quotes)
-  console.log('green')
-  return currentPoster
+function makeRandomPoster() {
+  var randomImage = images[getRandomIndex(images)]
+  var randomTitle = titles[getRandomIndex(titles)]
+  var randomQuote = quotes[getRandomIndex(quotes)]
+  var newPoster = new Poster(randomImage, randomTitle, randomQuote)
+    return newPoster
 }
-
-
+function currentPoster(newPoster) {
+  randomImage.src = newPoster.imageURL
+  randomTitle.innerText = newPoster.title
+  randomQuote.innerText = newPoster.quote
+}
+function displayPoster() {
+  currentPoster(makeRandomPoster())
+}
