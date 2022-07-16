@@ -1,14 +1,19 @@
-// query selector variables go here 👇
-var randomImage = document.querySelector('.poster-img');
-var randomTitle = document.querySelector('.poster-title');
-var randomQuote = document.querySelector('.poster-quote');
-var savePosterButton = document.querySelector('.save-poster');
-var showSavedButton = document.querySelector('.show-saved');
-var showRandomButton = document.querySelector('.show-random');
-var showFormButton = document.querySelector('.show-form')
-// var newPoster = new Poster(randomImage, randomTitle, randomQuote)
+var mainImage = document.querySelector('.poster-img');
+var mainTitle = document.querySelector('.poster-title');
+var mainQuote = document.querySelector('.poster-quote');
 
-// we've provided you with some data to work with 👇
+// var savePosterButton = document.querySelector('.save-poster');
+var showSavedButton = document.querySelector('.show-saved'); //18
+var showRandomButton = document.querySelector('.show-random'); //19
+var showFormButton = document.querySelector('.show-form') //20
+var neverMindButton = document.querySelector('.show-main') //34
+var backToMainButton = document.querySelector('.back-to-main') //39
+
+
+var mainPage = document.querySelector('.main-poster') //11
+var formPage = document.querySelector('.poster-form') //22
+var savedPosterPage = document.querySelector('.saved-posters') //36
+
 var images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -107,10 +112,15 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
+var currentPoster; 
 
-// event listeners go here 👇
-window.addEventListener('load', displayPoster)
-showRandomButton.addEventListener('click', displayPoster)
+window.addEventListener('load', makeRandomPoster)
+showRandomButton.addEventListener('click', makeRandomPoster)
+showFormButton.addEventListener('click', function(){togglePage(mainPage, formPage)})
+showSavedButton.addEventListener('click', function(){togglePage(mainPage, savedPosterPage)})
+neverMindButton.addEventListener('click', function(){togglePage(formPage, mainPage)})
+backToMainButton.addEventListener('click', function(){togglePage(savedPosterPage, mainPage)})
+
 
 
 function getRandomIndex(array) {
@@ -121,13 +131,23 @@ function makeRandomPoster() {
   var randomTitle = titles[getRandomIndex(titles)]
   var randomQuote = quotes[getRandomIndex(quotes)]
   var newPoster = new Poster(randomImage, randomTitle, randomQuote)
-    return newPoster
+    currentPoster = newPoster
+    makeCurrentPoster()
 }
-function currentPoster(newPoster) {
-  randomImage.src = newPoster.imageURL
-  randomTitle.innerText = newPoster.title
-  randomQuote.innerText = newPoster.quote
+function makeCurrentPoster() {
+  mainImage.src = currentPoster.imageURL
+  mainTitle.innerText = currentPoster.title
+  mainQuote.innerText = currentPoster.quote
 }
-function displayPoster() {
-  currentPoster(makeRandomPoster())
+function togglePage(pageToHide, pageToShow) {
+  pageToHide.classList.add('hidden')
+  pageToShow.classList.remove('hidden')
 }
+
+
+
+// make query seletor variables for line 34 and line 39
+// create event listener for those variables
+// utilze togle page to hide current page and unhide main page
+
+//Dont forget data modle currentPoster
