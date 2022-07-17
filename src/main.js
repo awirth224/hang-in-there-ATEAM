@@ -2,12 +2,17 @@ var mainImage = document.querySelector('.poster-img');
 var mainTitle = document.querySelector('.poster-title');
 var mainQuote = document.querySelector('.poster-quote');
 
-// var savePosterButton = document.querySelector('.save-poster');
+// var savePosterButton = document.querySelector('.save-poster'); //17
+var showMyPosterButton = document.querySelector('.make-poster') //31
 var showSavedButton = document.querySelector('.show-saved'); //18
 var showRandomButton = document.querySelector('.show-random'); //19
 var showFormButton = document.querySelector('.show-form') //20
 var neverMindButton = document.querySelector('.show-main') //34
 var backToMainButton = document.querySelector('.back-to-main') //39
+
+var imageUrlInput = document.querySelector('#poster-image-url') //26
+var titleInput = document.querySelector('#poster-title') //28
+var quoteInput = document.querySelector('#poster-quote') //30
 
 
 var mainPage = document.querySelector('.main-poster') //11
@@ -120,8 +125,7 @@ showFormButton.addEventListener('click', function(){togglePage(mainPage, formPag
 showSavedButton.addEventListener('click', function(){togglePage(mainPage, savedPosterPage)})
 neverMindButton.addEventListener('click', function(){togglePage(formPage, mainPage)})
 backToMainButton.addEventListener('click', function(){togglePage(savedPosterPage, mainPage)})
-
-
+showMyPosterButton.addEventListener('click', ) ////
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -143,11 +147,20 @@ function togglePage(pageToHide, pageToShow) {
   pageToHide.classList.add('hidden')
   pageToShow.classList.remove('hidden')
 }
+function captureInputValues(imageUrlInput, titleInput, quoteInput) {
+  var createPoster = {images: imageUrlInput.value, titles: titleInput.value, quotes: quoteInput.value}
+  currentPoster.push(createPoster)
+  render ()
+}
 
 
-
-// make query seletor variables for line 34 and line 39
-// create event listener for those variables
-// utilze togle page to hide current page and unhide main page
+//use .value to capture input in the inputfields
+//add query selector and event listner for "show my poster" button
+//use anonymous function to toggle back to main page
+//take vaules from inputs and create new instance of our poster class
+//using currentPoster
+//submit inputted data into their respective arrays 
+//use new instance of poster class to display new poster image
+//on the main page(DOM)
 
 //Dont forget data modle currentPoster
