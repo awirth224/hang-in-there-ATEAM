@@ -1,22 +1,20 @@
-var mainImage = document.querySelector('.poster-img');
-var mainTitle = document.querySelector('.poster-title');
-var mainQuote = document.querySelector('.poster-quote');
-
-var savePosterButton = document.querySelector('.save-poster'); //17
-var showMyPosterButton = document.querySelector('.make-poster') //31
-var showSavedButton = document.querySelector('.show-saved'); //18
-var showRandomButton = document.querySelector('.show-random'); //19
-var showFormButton = document.querySelector('.show-form') //20
-var neverMindButton = document.querySelector('.show-main') //34
-var backToMainButton = document.querySelector('.back-to-main') //39
-
-var imageUrlInput = document.querySelector('#poster-image-url') //26
-var titleInput = document.querySelector('#poster-title') //28
-var quoteInput = document.querySelector('#poster-quote') //30
-
-var mainPage = document.querySelector('.main-poster') //11
-var formPage = document.querySelector('.poster-form') //22
-var savedPosterPage = document.querySelector('.saved-posters') //36
+var mainImage = document.querySelector('.poster-img')
+var mainTitle = document.querySelector('.poster-title')
+var mainQuote = document.querySelector('.poster-quote')
+var savePosterButton = document.querySelector('.save-poster')
+var showMyPosterButton = document.querySelector('.make-poster') 
+var showSavedButton = document.querySelector('.show-saved')
+var showRandomButton = document.querySelector('.show-random')
+var showFormButton = document.querySelector('.show-form') 
+var neverMindButton = document.querySelector('.show-main') 
+var backToMainButton = document.querySelector('.back-to-main') 
+var savePostersGrid = document.querySelector('.saved-posters-grid')
+var imageUrlInput = document.querySelector('#poster-image-url') 
+var titleInput = document.querySelector('#poster-title') 
+var quoteInput = document.querySelector('#poster-quote') 
+var mainPage = document.querySelector('.main-poster') 
+var formPage = document.querySelector('.poster-form') 
+var savedPosterPage = document.querySelector('.saved-posters') 
 
 var images = [
   "./assets/bees.jpg",
@@ -37,7 +35,7 @@ var images = [
   "./assets/squirrel.jpg",
   "./assets/tiger.jpg",
   "./assets/turtle.jpg"
-];
+]
 var titles = [
   "determination",
   "success",
@@ -74,7 +72,7 @@ var titles = [
   "trust",
   "understanding",
   "wisdom"
-];
+]
 var quotes = [
   "Don’t downgrade your dream just to fit your reality, upgrade your conviction to match your destiny.",
   "You are braver than you believe, stronger than you seem and smarter than you think.",
@@ -114,67 +112,76 @@ var quotes = [
   "No matter what people tell you, words and ideas can change the world.",
   "Each person must live their life as a model for others.",
   "A champion is defined not by their wins but by how they can recover when they fall."
-];
-var savedPosters = [];
-var currentPoster; 
+]
+var savedPosters = []
+var currentPoster
 
 window.addEventListener('load', makeRandomPoster)
 showRandomButton.addEventListener('click', makeRandomPoster)
 showFormButton.addEventListener('click', function(){togglePage(mainPage, formPage)})
-showSavedButton.addEventListener('click', function(){togglePage(mainPage, savedPosterPage)})
+showSavedButton.addEventListener('click', showSavedPoster)
 neverMindButton.addEventListener('click', function(){togglePage(formPage, mainPage)})
 backToMainButton.addEventListener('click', function(){togglePage(savedPosterPage, mainPage)})
 showMyPosterButton.addEventListener('click', captureAndPrevent)
+savePosterButton.addEventListener('click', savePoster )
 
 function captureAndPrevent(){
-  captureInputValues();
-  event.preventDefault();
+  captureInputValues()
+  event.preventDefault()
 }
-
 
 function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
+  return Math.floor(Math.random() * array.length)
 }
+
 function makeRandomPoster() {
   var randomImage = images[getRandomIndex(images)]
   var randomTitle = titles[getRandomIndex(titles)]
   var randomQuote = quotes[getRandomIndex(quotes)]
   var newPoster = new Poster(randomImage, randomTitle, randomQuote)
-    currentPoster = newPoster
-    makeCurrentPoster()
+  currentPoster = newPoster
+  makeCurrentPoster()
 }
+
 function makeCurrentPoster() {
   mainImage.src = currentPoster.imageURL
   mainTitle.innerText = currentPoster.title
   mainQuote.innerText = currentPoster.quote
 }
+
 function togglePage(pageToHide, pageToShow) {
   pageToHide.classList.add('hidden')
   pageToShow.classList.remove('hidden')
 }
 
 function captureInputValues() {
-      var createdPoster =  new Poster(imageUrlInput.value, titleInput.value, quoteInput.value)
-      currentPoster = createdPoster
-      images.push(imageUrlInput.value)
-      titles.push(titleInput.value)
-      quotes.push(quoteInput.value)
-      togglePage(formPage, mainPage)
-      makeCurrentPoster()
+  var createdPoster =  new Poster(imageUrlInput.value, titleInput.value, quoteInput.value)
+  currentPoster = createdPoster
+  images.push(imageUrlInput.value)
+  titles.push(titleInput.value)
+  quotes.push(quoteInput.value)
+  togglePage(formPage, mainPage)
+  makeCurrentPoster()
+}
+
+function savePoster() {
+  for(var i = 0; i < savedPosters.length; i++){
+    if(currentPoster.quote === savedPosters[i].quote && currentPoster.title ===   savedPosters[i].title && currentPoster.imageURL === savedPosters[i].imageURL) {
+     return 
     }
-    
+  }
+  savedPosters.push(currentPoster)
+}
 
-//imageURl.push(imageURLinput.value)
-//.push into an array (the value is arguement
- // instantiated 2 functions within that, current poster)
-
-//use .value to capture input in the inputfields
-//add query selector and event listner for "show my poster" button
-//use anonymous function to toggle back to main page
-//take vaules from inputs and create new instance of our poster class
-//using currentPoster
-//submit inputted data into their respective arrays 
-//use new instance of poster class to display new poster image
-//on the main page(DOM)
-
-//Dont forget data modle currentPoster
+function showSavedPoster() {
+  savePostersGrid.innerHTML = ''
+  for(var i = 0; i < savedPosters.length; i++) {
+    savePostersGrid.innerHTML += `
+    <article class="mini-poster">
+      <img src="${savedPosters[i].imageURL}" alt="Inspiring Poster">
+      <h2>${savedPosters[i].title}</h2>
+      <h4>${savedPosters[i].quote}</h4>
+    </article>`
+  }
+  togglePage(mainPage, savedPosterPage)
+} 
